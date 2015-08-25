@@ -273,8 +273,9 @@ Modules.graph = function(){
 		resize = function(){
 			canvas.width  = Elements.content.width();
 			canvas.height = Elements.content.height();
-		}();
+		};
 
+	resize();
 	$(window).on('resize', resize);
 
 	var smoothie = new SmoothieChart({
