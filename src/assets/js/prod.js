@@ -1,4 +1,3 @@
-(function(){
 /* Modernizr 2.8.3 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-prefixed-testprop-testallprops-domprefixes-getusermedia
  */
@@ -587,4 +586,3 @@ var Templating = (function($, _, Modernizr, window, document){
 		get isChanging(){return isChanging;}
 	};
 })(jQuery, _, Modernizr, window, document);
-})();
