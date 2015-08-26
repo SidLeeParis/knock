@@ -60,7 +60,6 @@ var Tracking = (function(_, tracking, document){
 	FastTracker.prototype.checkNewBounce = function(){
 		// If since the last execution of that function (300ms), no new bounces occured
 		if (this.bounceIntensities.length == this.lastBouncesLength){
-			console.log('                             reset');
 			// We can reset all the values and wait for a new image translation
 			this.resetValues();
 			this.bouncing 		   = false;

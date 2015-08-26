@@ -91,9 +91,6 @@ Modules.sidlee = function(){
 
 	function update(){
 		_.each(particles, function(particle){
-			particle.x += particle.vx;
-			particle.y += particle.vy;
-
 			var distanceFromOrigin = getDistanceFromOrigin(particle),
 				friction 		   = (1000 - distanceFromOrigin) / 1000;
 
@@ -121,6 +118,8 @@ Modules.sidlee = function(){
 				particle.vy *= friction;
 			}
 
+			particle.x += particle.vx;
+			particle.y += particle.vy;
 			particle.distanceFromOrigin = distanceFromOrigin;
 		});
 
