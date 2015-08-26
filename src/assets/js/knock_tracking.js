@@ -52,7 +52,9 @@ var Tracking = (function(_, tracking, document){
 	};
 
 	FastTracker.prototype.knock = function(){ // Feedback
-		Templating.activeModule.reference.feedback();
+		var intensity = Math.abs(_.last(tracker.bounceIntensities)) || 1;
+
+		Templating.activeModule.reference.feedback(intensity);
 	};
 
 	FastTracker.prototype.checkNewBounce = function(){

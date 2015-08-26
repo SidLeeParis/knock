@@ -26,7 +26,7 @@ var Templating = (function($, _, Modernizr, window, document){
 
 		activeModule = getActiveModule(hash);
 
-		Elements.content.load('assets/templates/'+ activeModule.name +'.html', function(){
+		Elements.content.load('templates/'+ activeModule.name +'.html', function(){
 			isChanging = false;
 
 			activeModule.reference = new Modules[activeModule.name]();
@@ -80,7 +80,6 @@ var Templating = (function($, _, Modernizr, window, document){
 	return {
 		loadTemplate: loadTemplate,
 		loadPreset: loadPreset,
-		stopAnimations: stopAnimations,
 		get activeModule(){return activeModule;},
 		get activePreset(){return activePreset;},
 		set activePreset(value){activePreset = value;},

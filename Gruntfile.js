@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	    	},
 	    	scripts: {
 	    		files: ['src/assets/js/*.js', 'src/assets/js/modules/*.js'],
-	    		tasks: ['concat'],
+	    		tasks: ['jshint'],
 	    		options: {
 	    			spawn: false
 	    		}
@@ -45,9 +45,9 @@ module.exports = function(grunt) {
 		},
 		copy: {
 			dist: {
-				cwd: 'src',
-				src: ['index.html', 'assets/templates/**', 'assets/medias/**', 'assets/css/prod.min.css'],
-				dest: 'dist',
+				cwd: 'src/assets',
+				src: ['medias/**', 'css/prod.min.css'],
+				dest: 'dist', 
 				expand: true
 			}
 		},
@@ -57,9 +57,9 @@ module.exports = function(grunt) {
 	    	},
 	    	dist: {
 	    		src: [
-	    			'src/assets/js/libs/*.js', 'src/assets/js/*.js', '!src/assets/js/prod.js', '!src/assets/js/templating.js', 'src/assets/js/modules/*.js', 'src/assets/js/templating.js'
+	    			'src/assets/js/libs/*.js', 'src/assets/js/*.js', '!src/assets/js/templating.js', 'src/assets/js/modules/*.js', 'src/assets/js/templating.js'
 	    		],
-	    		dest: 'src/assets/js/prod.js'
+	    		dest: 'dist/js/prod.min.js'
 	    	}
 	    },
 	    uglify: {
@@ -68,15 +68,15 @@ module.exports = function(grunt) {
 	    		footer: '})();'
 	    	},
 	    	dist: {
-	    		src: 'src/assets/js/prod.js',
-	    		dest: 'dist/assets/js/prod.min.js'
+	    		src: 'dist/js/prod.min.js',
+	    		dest: 'dist/js/prod.min.js'
 	    	}
 	    },
 	    jshint: {
 	    	files: ['src/assets/js/*.js', '!src/assets/js/prod.js', 'src/assets/js/modules/*.js']
 	    },
 	    sass: {
-	    	dist: {
+	    	all: {
 	    		options: {
 	    			style: 'compressed'
 	    		},
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 	    	options: {
 	    		browsers: ['last 3 versions', '> 1%']
 	    	},
-	    	dist: {
+	    	all: {
 	    		files: {
 	    			'src/assets/css/prod.min.css': 'src/assets/css/prod.min.css'
 	    		}
@@ -104,19 +104,14 @@ module.exports = function(grunt) {
     		}
 		},
 		processhtml: {
-			dev: {
-				files: {
-					'src/index.html': ['src/index-process.html']
-				}
-			},
-			dist: {
-				files: {
-					'dist/index.html': ['src/index-process.html']
-				}
+			all: {
+				files: [
+					{cwd: 'src', src: ['*.html'], dest: 'dist/', expand: true},
+					{cwd: 'src/templates', src: ['*.html'], dest: 'dist/templates', expand: true}
+				]
 			}
 		}
 	});
-
 
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -130,10 +125,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-html');
 	grunt.loadNpmTasks('grunt-processhtml');
 
-	grunt.registerTask('serve', ['processhtml:dev', 'connect:server', 'watch']);
+	grunt.registerTask('serve', ['connect:server', 'watch']);
 	grunt.registerTask('lint', ['jshint', 'htmllint']);
-	grunt.registerTask('default', ['concat', 'sass', 'autoprefixer', 'jshint', 'processhtml:dev', 'htmllint']);
+	grunt.registerTask('default', ['sass', 'autoprefixer', 'jshint', 'htmllint']);
 
-	grunt.registerTask('build', ['clean', 'copy', 'uglify', 'processhtml:dist']);
+	grunt.registerTask('build', ['clean', 'copy', 'processhtml', 'concat', 'uglify']);
 	grunt.registerTask('run', ['build', 'connect:run']);
 };
