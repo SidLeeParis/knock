@@ -28,8 +28,8 @@ Modules.sidlee = function(){
 
 		/** SidLee particles**/
 		for(i = 0; i < positions.length; i++){
-				initialX = positions[i].x * 10 + (canvas.width / 2 - 80 * 10 / 2);
-				initialY = positions[i].y * 10 + (canvas.height / 2 - 15 * 10 / 2);
+			initialX = positions[i].x * 10 + (canvas.width / 2 - 80 * 10 / 2);
+			initialY = positions[i].y * 10 + (canvas.height / 2 - 15 * 10 / 2);
 
 			particles.push({
 				x: initialX, 
@@ -46,8 +46,8 @@ Modules.sidlee = function(){
 
 		/** Random particles **/
 		for (i = 0; i < randomParticlesNum; i++){
-				initialX = Math.random()*canvas.width;
-				initialY = Math.random()*canvas.height;
+			initialX = Math.random()*canvas.width;
+			initialY = Math.random()*canvas.height;
 
 			randomParticles.push({
 				x: initialX,
@@ -108,8 +108,8 @@ Modules.sidlee = function(){
 				}
 
 				else if (distanceFromOrigin > 2 && distanceFromOrigin > particle.distanceFromOrigin){
-					particle.vx = Math.random()/2 - 0.25;
-					particle.vy = Math.random()/2 - 0.25;
+					particle.vx = Math.random() / 2 - 0.25;
+					particle.vy = Math.random() / 2 - 0.25;
 				}
 			}
 
