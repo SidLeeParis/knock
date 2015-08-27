@@ -2,7 +2,7 @@
   "name": "Knock",
   "version": "0.1.0",
   "scripts": {
-    "postInstall": "./node_modules/grunt/bin/grunt build"
+    "postInstall": "grunt build"
   },
   "dependencies": {
     "grunt": "^0.4.5",
