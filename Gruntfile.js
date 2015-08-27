@@ -129,12 +129,8 @@ module.exports = function(grunt) {
     			src: ['src/index.html', 'src/assets/templates/*.html']
     		}
 		},
-		'gh-pages': {
-			options: {
-				base: 'dist',
-				only: ['!README.md']
-			},
-			src: '**/*'
+		buildGhPages: {
+			build: {}
 		}
 	});
 
@@ -157,7 +153,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-html');
 
-	grunt.loadNpmTasks('grunt-gh-pages');
+	grunt.loadNpmTasks('grunt-build-gh-pages');
 
 	grunt.registerTask('serve', ['connect:server', 'watch']);
 	grunt.registerTask('lint', ['jshint', 'htmllint']);
@@ -165,5 +161,5 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'processhtml', 'htmlmin']);
 	grunt.registerTask('run', ['build', 'connect:run']);
-	grunt.registerTask('ghpages', ['build', 'gh-pages']);
+	grunt.registerTask('ghpages', ['build', 'buildGhPages']);
 };
