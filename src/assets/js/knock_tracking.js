@@ -148,6 +148,10 @@ var Tracking = (function(_, tracking, document){
 	function startTracking(){
 		tracking.track('#tracking-video', tracker, {camera: true});
 		isTracking = true;
+
+		tracking.Fast.THRESHOLD = 20;
+		tracker.blur = 3;
+		tracker.translationPercentage = 0.95;
 	}
 
 	return {

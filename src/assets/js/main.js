@@ -23,7 +23,6 @@ var Elements = (function($, window){
 		content 	= container.find('.content'),
 		menu 	    = $('.menu'),
 		modulesList = menu.find('.modules li'),
-		presetsList = menu.find('.presets li'),
 		menuButton  = menu.find('.toggle-button');
 
 
@@ -43,11 +42,6 @@ var Elements = (function($, window){
 		$(this).find('a').trigger('click');
 	});
 
-	presetsList.on('click', function(){
-		Templating.activePreset = $(this).data('preset');
-		Templating.loadPreset(Templating.activePreset);
-	});
-
 	menuButton.on('click', function(){
 		menu.clearQueue();
 		menuButton.toggleClass('opened');
@@ -57,18 +51,13 @@ var Elements = (function($, window){
 		return false;
 	});
 
-	$(window).unload(function(){
-		localStorage.setItem('preset', Templating.activePreset);
-	});
-
 	$('.btn-confirm').on('click', function(){
 		Templating.loadTemplate(Templating.activeModule.name);
 	});
 
 	return {
 		content: content,
-		modulesList: modulesList,
-		presetsList: presetsList
+		modulesList: modulesList
 	};
 })(jQuery, window);
 
