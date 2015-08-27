@@ -131,5 +131,4 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'copy', 'processhtml', 'concat', 'uglify']);
 	grunt.registerTask('run', ['build', 'connect:run']);
-	grunt.registerTask('heroku', ['build']);
 };
