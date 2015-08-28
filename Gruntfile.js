@@ -132,7 +132,7 @@ module.exports = function(grunt) {
 		git_deploy: {
 			build: {
 				options: {
-					url: 'git@github.com:sidLeeParis/knock.git',
+					url: 'https://github.com/SidLeeParis/knock.git',
 					branch: 'gh-pages'
 				},
 				src: 'dist'
