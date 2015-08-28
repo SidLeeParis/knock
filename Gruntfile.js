@@ -130,7 +130,12 @@ module.exports = function(grunt) {
     		}
 		},
 		buildGhPages: {
-			build: {}
+			build: {
+				options: {
+					dist: 'dist',
+					build_branch: 'gh-pages'
+				}
+			}
 		}
 	});
 
