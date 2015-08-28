@@ -129,12 +129,13 @@ module.exports = function(grunt) {
     			src: ['src/index.html', 'src/assets/templates/*.html']
     		}
 		},
-		buildGhPages: {
+		git_deploy: {
 			build: {
 				options: {
-					dist: 'dist',
-					build_branch: 'gh-pages'
-				}
+					url: 'git@github.com:sidLeeParis/knock.git',
+					branch: 'gh-pages'
+				},
+				src: 'dist'
 			}
 		}
 	});
@@ -158,7 +159,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-html');
 
-	grunt.loadNpmTasks('grunt-build-gh-pages');
+	grunt.loadNpmTasks('grunt-git-deploy');
 
 	grunt.registerTask('serve', ['connect:server', 'watch']);
 	grunt.registerTask('lint', ['jshint', 'htmllint']);
@@ -166,5 +167,5 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'processhtml', 'htmlmin']);
 	grunt.registerTask('run', ['build', 'connect:run']);
-	grunt.registerTask('ghpages', ['build', 'buildGhPages']);
+	grunt.registerTask('ghpages', ['build', 'git_deploy']);
 };
