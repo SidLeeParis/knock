@@ -1,6 +1,6 @@
 Modules.graph = function(){
 	var title  = 'Intensity Graph',
-		canvas = document.getElementById('chart-canvas'),
+		canvas = document.getElementById('chart-canvas');
 		resize = function(){
 			canvas.width  = Elements.content.width();
 			canvas.height = Elements.content.height();
@@ -18,8 +18,20 @@ Modules.graph = function(){
 		}),
 		intensityLine = new TimeSeries();
 
-	function feedback(){
-		return;
+	function feedback(intensity){
+		var count = document.getElementById('count');
+
+		count.innerHTML++;
+
+		if (count.innerHTML == 1){
+			document.getElementById('knock').innerHTML = 'knock';
+		}
+
+		else {
+			document.getElementById('knock').innerHTML = 'knocks';
+		}
+
+		document.getElementById('intensity').innerHTML = intensity;
 	}
 
 	function loop(){

@@ -54,6 +54,7 @@ var Templating = (function($, _, Modernizr, window, document){
 		get activeModule(){return activeModule;},
 		get requestId(){return requestId;},
 		set requestId(value){requestId = value;},
-		get isChanging(){return isChanging;}
+		get isChanging(){return isChanging;},
+		stopAnimations: stopAnimations
 	};
 })(jQuery, _, Modernizr, window, document);
