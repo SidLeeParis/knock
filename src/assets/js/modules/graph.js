@@ -7,7 +7,7 @@ Modules.graph = function(){
 		};
 
 	resize();
-	$(window).on('resize', resize);
+	Elements.windowElem.on('resize', resize);
 
 	var smoothie = new SmoothieChart({
 			grid: {strokeStyle: 'transparent', verticalSections: 0, borderVisible: false, fillStyle: 'transparent'},
@@ -19,19 +19,7 @@ Modules.graph = function(){
 		intensityLine = new TimeSeries();
 
 	function feedback(intensity){
-		var count = document.getElementById('count');
-
-		count.innerHTML++;
-
-		if (count.innerHTML == 1){
-			document.getElementById('knock').innerHTML = 'knock';
-		}
-
-		else {
-			document.getElementById('knock').innerHTML = 'knocks';
-		}
-
-		document.getElementById('intensity').innerHTML = intensity;
+		return;
 	}
 
 	function loop(){

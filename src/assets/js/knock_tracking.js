@@ -45,7 +45,7 @@ var Tracking = (function(_, tracking, document){
 					}
 				}, this);
 
-				return translatedMatches.length >= Math.ceil(0.5 * matches.length);
+				return translatedMatches.length >= Math.round(this.translationPercentage * matches.length);
 			}
 		}
 
@@ -118,6 +118,10 @@ var Tracking = (function(_, tracking, document){
 		else if (matchedCorners.length < 10 && tracking.Fast.THRESHOLD > 20){
 			tracking.Fast.THRESHOLD -= 1;
 		}
+
+		if (getScreenSize() > 19 && matchedCorners.length > 12){
+			tracker.translationPercentage = 0.6;
+		}
 	};
 
 	FastTracker.prototype.track = function(pixels, width, height){
@@ -150,7 +154,7 @@ var Tracking = (function(_, tracking, document){
 			if (!this.bouncing){ // If that translation isn't just a bounce of another knock
 				this.bouncing = true;
 				this.bounceIntensities.push(this.translationIntensity); // We add the new bounce to the bounceIntensities array
-				this.initiateTimeout(80); // We launch the feedback timer
+				this.initiateTimeout(50); // We launch the feedback timer
 			}
 
 			else {
@@ -173,10 +177,6 @@ var Tracking = (function(_, tracking, document){
 		isTracking = true;
 
 		tracking.Fast.THRESHOLD = 20;
-
-		if (getScreenSize() > 19){
-			tracker.translationPercentage = 0.7;
-		}
 	}
 
 	function getScreenSize(){
@@ -184,7 +184,7 @@ var Tracking = (function(_, tracking, document){
 			x 	 = Math.pow((screen.width / dpi.offsetWidth), 2),
 			y 	 = Math.pow((screen.height / dpi.offsetHeight), 2);
 
-		return Math.sqrt(x+y);
+		return Math.sqrt(x + y);
 	}
 
 	return {

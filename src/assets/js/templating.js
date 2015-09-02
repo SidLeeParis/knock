@@ -51,10 +51,10 @@ var Templating = (function($, _, Modernizr, window, document){
 
 	return {
 		loadTemplate: loadTemplate,
+		stopAnimations: stopAnimations,
 		get activeModule(){return activeModule;},
 		get requestId(){return requestId;},
 		set requestId(value){requestId = value;},
-		get isChanging(){return isChanging;},
-		stopAnimations: stopAnimations
+		get isChanging(){return isChanging;}
 	};
 })(jQuery, _, Modernizr, window, document);

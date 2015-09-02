@@ -16,7 +16,7 @@ Modules.sidlee = function(){
 		};
 
 	resize();
-	$(window).on('resize', resize);
+	Elements.windowElem.on('resize', resize);
 
 	var feedback = _.throttle(function(intensity){
 		_.each(particles, function(particle){
@@ -41,7 +41,12 @@ Modules.sidlee = function(){
 
 		/** SidLee particles**/
 		for(i = 0; i < positions.length; i++){
-			var scale  = Math.min(canvas.width / 80, canvas.height / 15) - 2;
+			var scale 		= Math.min(canvas.width / 80, canvas.height / 15, 14),
+				radiusScale = 3;
+
+			if (scale < 11){
+				radiusScale = 2;
+			}
 
 			initialX = positions[i].x * scale + (canvas.width / 2 - 80 * scale / 2);
 			initialY = positions[i].y * scale + (canvas.height / 2 - 15 * scale / 2);
@@ -51,7 +56,7 @@ Modules.sidlee = function(){
 				y: initialY, 
 				initialX: initialX,
 				initialY: initialY,
-				radius: Math.floor(Math.random() * 2) + 1,
+				radius: Math.floor(Math.random() * radiusScale) + 1,
 				alpha: Math.max(Math.random(), 0.7),
 				vx: Math.random() - 0.5,
 				vy: Math.random() - 0.5,
@@ -61,8 +66,8 @@ Modules.sidlee = function(){
 
 		/** Random particles **/
 		for (i = 0; i < randomParticlesNum; i++){
-			initialX = Math.random()*canvas.width;
-			initialY = Math.random()*canvas.height;
+			initialX = Math.random() * canvas.width;
+			initialY = Math.random() * canvas.height;
 
 			randomParticles.push({
 				x: initialX,

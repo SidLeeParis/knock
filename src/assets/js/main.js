@@ -19,14 +19,14 @@ window.cancelAnimFrame = (function(){
 
 /***** ELEMENTS & EVENTS *****/
 var Elements = (function($, window){
-	var container 	= $('.container'),
+	var windowElem	= $(window),
+		container 	= $('.container'),
 		content 	= container.find('.content'),
 		menu 	    = $('.menu'),
 		modulesList = menu.find('.modules li'),
 		menuButton  = menu.find('.toggle-button');
 
-
-	$(window).on('popstate', function(){
+	windowElem.on('popstate', function(){
 		if (!Templating.isChanging){
 			Templating.loadTemplate(window.location.hash.split('#')[1]);
 		}
@@ -56,6 +56,7 @@ var Elements = (function($, window){
 	});
 
 	return {
+		windowElem: windowElem,
 		content: content,
 		modulesList: modulesList
 	};
