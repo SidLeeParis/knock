@@ -18,18 +18,18 @@ Modules.sidlee = function(){
 	resize();
 	Elements.windowElem.on('resize', resize);
 
-	var feedback = _.throttle(function(intensity){
-		_.each(particles, function(particle){
-			particle.vx = particle.vx * (intensity * 15 * (0.6 + Math.random() * 0.4));
-			particle.vy = particle.vy * (intensity * 15 * (0.6 + Math.random() * 0.4));
-		});
+	var feedback = function(intensity){
+		// _.each(particles, function(particle){
+		// 	particle.vx = particle.vx * (intensity * 40);
+		// 	particle.vy = particle.vy * (intensity * 40);
+		// });
 
 		reposition = false;
 
 		setTimeout(function(){
 			reposition = true;
-		}, 1000);
-	}, 2100, {trailing: false});
+		}, 500);
+	};
 
 	function createParticles(){
 		var i, initialX, initialY;
@@ -37,7 +37,7 @@ Modules.sidlee = function(){
 		particles 		= [];
 		randomParticles = [];
 
-		context.fillStyle = '#FFF';
+		context.fillStyle = '#fff';
 
 		/** SidLee particles**/
 		for(i = 0; i < positions.length; i++){
@@ -48,23 +48,25 @@ Modules.sidlee = function(){
 				radiusScale = 2;
 			}
 
-			initialX = positions[i].x * scale + (canvas.width / 2 - 80 * scale / 2);
-			initialY = positions[i].y * scale + (canvas.height / 2 - 15 * scale / 2);
+			initialX = (positions[i].x + (Math.random() - 0.5) * 0.7) * scale + (canvas.width / 2 - 80 * scale / 2);
+			initialY = (positions[i].y + (Math.random() - 0.5) * 0.7) * scale + (canvas.height / 2 - 15 * scale / 2);
 
 			particles.push({
-				x: initialX, 
-				y: initialY, 
+				x: initialX,
+				y: initialY,
 				initialX: initialX,
 				initialY: initialY,
 				radius: Math.floor(Math.random() * radiusScale) + 1,
-				alpha: Math.max(Math.random(), 0.7),
+				alpha: Math.max(Math.random() * 0.75 + 0.1, 0.6),
 				vx: Math.random() - 0.5,
 				vy: Math.random() - 0.5,
 				distanceFromOrigin: 0
 			});
 		}
 
+
 		/** Random particles **/
+
 		for (i = 0; i < randomParticlesNum; i++){
 			initialX = Math.random() * canvas.width;
 			initialY = Math.random() * canvas.height;
@@ -74,8 +76,8 @@ Modules.sidlee = function(){
 				y: initialY,
 				initialX: initialX,
 				initialY: initialY,
-				radius: Math.random() + 1,
-				alpha: Math.min(Math.random(), 0.4),
+				radius: (Math.random() + 1) * 2,
+				alpha: Math.max(0.05, Math.random() * 0.4),
 				vx: Math.random() - 0.5,
 				vy: Math.random() - 0.5
 			});
@@ -85,7 +87,7 @@ Modules.sidlee = function(){
 	}
 
 	function loop(){
-		context.clearRect(0, 0, canvas.width, canvas.height);	
+		context.clearRect(0, 0, canvas.width, canvas.height);
 		update();
 		render();
 		Templating.requestId = window.requestAnimFrame(loop);
@@ -110,20 +112,32 @@ Modules.sidlee = function(){
 	}
 
 	function update(){
-		_.each(particles, function(particle){
-			var distanceFromOrigin = getDistanceFromOrigin(particle),
-				friction 		   = (1000 - distanceFromOrigin) / 1000;
+		_.each(particles, function(particle, i){
+			var distanceFromOrigin = getDistanceFromOrigin(particle);
 
 			if (reposition){
 				if (distanceFromOrigin > 3){
 					if (distanceFromOrigin > particle.distanceFromOrigin) {
-						particle.vx *= -1 * (0.6 + Math.random() * 0.4);
-						particle.vy *= -1 * (0.6 + Math.random() * 0.4);	
+						particle.vx *= -1 / 400;
+						particle.vy *= -1 / 400;
 					}
-
 					else {
-						particle.vx /= friction;
-						particle.vy /= friction;
+						// var speed = (1 + (distanceFromOrigin - 50) / 50) * 5;
+						// particle.vx = (particle.initialX - particle.x) / speed;
+						// particle.vy = (particle.initialY - particle.y) / speed;
+						particle.vx *= 1.1;
+						particle.vy *= 1.1;
+
+						if ((particle.x + particle.vx > particle.initialX && particle.x < particle.initialX) ||
+							(particle.x + particle.vx < particle.initialX && particle.x > particle.initialX)) {
+							particle.x = particle.initialX;
+							particle.vx = Math.random() - 0.5;
+						}
+						if ((particle.y + particle.vy > particle.initialY && particle.y < particle.initialY) ||
+							(particle.y + particle.vy < particle.initialY && particle.y > particle.initialY)) {
+							particle.y = particle.initialY;
+							particle.vy = Math.random() - 0.5;
+						}
 					}
 				}
 
@@ -132,10 +146,9 @@ Modules.sidlee = function(){
 					particle.vy = Math.random() / 2 - 0.25;
 				}
 			}
-
 			else {
-				particle.vx *= friction;
-				particle.vy *= friction;
+				particle.vx *= 1.2;
+				particle.vy *= 1.2;
 			}
 
 			particle.x += particle.vx;
