@@ -26,21 +26,25 @@ var Tracking = (function(_, tracking, document){
 
 	FastTracker.prototype.isTranslation = function(matches){
 		if (matches.length > 0){ // If there's at least 1 match
-			var reliableKeypoint  = _.max(matches, function(match){return match.confidence;}), // We filter the best reliable keypoint thanks to its confidence
-				translationHeight = reliableKeypoint.keypoint2[1] - reliableKeypoint.keypoint1[1]; // Height of the movement of the feature point with the highest confidence
+			var reliableMatch  	  = _.max(matches, function(match){return match.confidence;}), // We filter the best reliable match with its confidence property
+				translationHeight = reliableMatch.keypoint2[1] - reliableMatch.keypoint1[1]; // Height of the movement of the feature point with the highest confidence
 
 			this.translationIntensity = translationHeight; // We save the height of the movement
 			translationHeight 		  = Math.abs(translationHeight); // Tests are made on the absolute value of this height
-
+			
 			if (translationHeight >= 1) { // If the height of the translation is superior to 1
 				/* 
 					If more than this.translationPercentage percent of the feature points moved of the same height (while taking into account this.uncertainty),
 					then an image translation occured and it wasn't just a movement.
 				*/
 				var translatedMatches = _.filter(matches, function(match){
-					var difference = Math.abs(match.keypoint2[1] - match.keypoint1[1]);
+					var differenceY = Math.abs(match.keypoint2[1] - match.keypoint1[1]),
+						differenceX = Math.abs(match.keypoint2[0] - match.keypoint1[0]);
 
-					if (difference > 0 && difference - this.uncertainty <= translationHeight && difference + this.uncertainty >= translationHeight){
+					if (differenceX < 2 &&
+						differenceY > 0 &&
+						differenceY - this.uncertainty <= translationHeight && 
+						differenceY + this.uncertainty >= translationHeight){
 						return true;
 					}
 				}, this);
@@ -87,7 +91,7 @@ var Tracking = (function(_, tracking, document){
 		}
 	};
 
-	FastTracker.prototype.checkNewKnock = function(){
+	FastTracker.prototype.trackNewKnock = function(){
 		var bounceIntensities = this.bounceIntensities,
 			positiveBounces   = _.filter(bounceIntensities.slice(this.startTrackingIndex), function(bounce){return bounce > 0;}), // We only take the bounces with a positive intensity after we started tracking for a new knock
 			lastBounces 	  = _.last(positiveBounces, this.increasingBounceThreshold); // We test on this.increasingBounceThreshold values of bounceIntensities
@@ -111,11 +115,11 @@ var Tracking = (function(_, tracking, document){
 	};
 
 	FastTracker.prototype.adjustSettings = function(matchedCorners){ // Settings are adjusted on the fly for best performance/precision
-		if (matchedCorners.length > 20){
+		if (matchedCorners.length > 30 && tracking.Fast.THRESHOLD < 50){
 			tracking.Fast.THRESHOLD += 1;
 		}
 
-		else if (matchedCorners.length < 10 && tracking.Fast.THRESHOLD > 20){
+		else if (matchedCorners.length < 15 && tracking.Fast.THRESHOLD > 20){
 			tracking.Fast.THRESHOLD -= 1;
 		}
 
@@ -133,7 +137,6 @@ var Tracking = (function(_, tracking, document){
 		
 		// Filtering the matches with a confidence < .85 or with a value of -Infinity/Infinity (?)
 		matchedCorners = _.filter(matchedCorners, function(match){return match.confidence >= 0.85 && match.confidence !== Math.abs(Infinity);}); 
-		this.adjustSettings(matchedCorners); // Every frame tracked, we adjust the settings (performance / precision gain)
 
 		this.emit('track', {
 			corners: corners,
@@ -143,6 +146,8 @@ var Tracking = (function(_, tracking, document){
 		// The corners and descriptors of the new frame are saved for the next frame that will be tested
 		this.corners 	 = corners;
 		this.descriptors = descriptors;
+
+		this.adjustSettings(matchedCorners); // Every frame tracked, we adjust the settings (performance / precision gain)
 	};
 
 	var tracker = new FastTracker();
@@ -158,7 +163,7 @@ var Tracking = (function(_, tracking, document){
 			}
 
 			else {
-				this.checkNewKnock();
+				this.trackNewKnock();
 			}
 		}
 

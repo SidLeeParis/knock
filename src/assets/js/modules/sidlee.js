@@ -1,5 +1,5 @@
 Modules.sidlee = function(){
-	var title			   = 'SidLee Particles',
+	var title			   = 'Sid Lee Particles',
 		canvas 		 	   = document.getElementById('particles-canvas'),
 		context    	 	   = canvas.getContext('2d'),
 		particles  	 	   = [],
@@ -16,20 +16,23 @@ Modules.sidlee = function(){
 		};
 
 	resize();
+
+	resize = _.debounce(resize, 200);
 	Elements.windowElem.on('resize', resize);
 
-	var feedback = function(intensity){
-		// _.each(particles, function(particle){
-		// 	particle.vx = particle.vx * (intensity * 40);
-		// 	particle.vy = particle.vy * (intensity * 40);
-		// });
+	function feedback(intensity){
+		intensity = Math.min(intensity, 6);
+
+		if (canvas.width > 1400 && intensity < 3){
+			intensity = 3;
+		}
 
 		reposition = false;
 
 		setTimeout(function(){
 			reposition = true;
-		}, 500);
-	};
+		}, 300 + intensity * 100);
+	}
 
 	function createParticles(){
 		var i, initialX, initialY;
@@ -64,9 +67,7 @@ Modules.sidlee = function(){
 			});
 		}
 
-
 		/** Random particles **/
-
 		for (i = 0; i < randomParticlesNum; i++){
 			initialX = Math.random() * canvas.width;
 			initialY = Math.random() * canvas.height;
@@ -121,10 +122,8 @@ Modules.sidlee = function(){
 						particle.vx *= -1 / 400;
 						particle.vy *= -1 / 400;
 					}
+
 					else {
-						// var speed = (1 + (distanceFromOrigin - 50) / 50) * 5;
-						// particle.vx = (particle.initialX - particle.x) / speed;
-						// particle.vy = (particle.initialY - particle.y) / speed;
 						particle.vx *= 1.1;
 						particle.vy *= 1.1;
 
@@ -133,6 +132,7 @@ Modules.sidlee = function(){
 							particle.x = particle.initialX;
 							particle.vx = Math.random() - 0.5;
 						}
+
 						if ((particle.y + particle.vy > particle.initialY && particle.y < particle.initialY) ||
 							(particle.y + particle.vy < particle.initialY && particle.y > particle.initialY)) {
 							particle.y = particle.initialY;
@@ -146,6 +146,7 @@ Modules.sidlee = function(){
 					particle.vy = Math.random() / 2 - 0.25;
 				}
 			}
+
 			else {
 				particle.vx *= 1.2;
 				particle.vy *= 1.2;

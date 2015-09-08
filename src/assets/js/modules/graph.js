@@ -1,10 +1,10 @@
 Modules.graph = function(){
 	var title  = 'Intensity Graph',
 		canvas = document.getElementById('chart-canvas');
-		resize = function(){
+		resize = _.debounce(function(){
 			canvas.width  = Elements.content.width();
 			canvas.height = Elements.content.height();
-		};
+		}, 200);
 
 	resize();
 	Elements.windowElem.on('resize', resize);

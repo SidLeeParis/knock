@@ -1,7 +1,7 @@
 /***** TEMPLATING *****/
 var Templating = (function($, _, Modernizr, window, document){
-	var activeModule 	= getActiveModule(window.location.hash.split('#')[1]),
-		isChanging		= false,
+	var activeModule = getActiveModule(window.location.hash.split('#')[1]),
+		isChanging	 = false,
 		requestId;
 
 	function getActiveModule(hash){
