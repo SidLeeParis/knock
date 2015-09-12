@@ -18,49 +18,63 @@ window.cancelAnimFrame = (function(){
 })();
 
 /***** ELEMENTS & EVENTS *****/
-var Elements = (function($, window){
-	var windowElem	= $(window),
-		container 	= $('.container'),
-		content 	= container.find('.content'),
-		menu 	    = $('.menu'),
-		modulesList = menu.find('.modules li'),
-		menuButton  = menu.find('.toggle-button');
+var Elements = (function($, Modernizr, window){
+	var $window		= $(window),
+		$container  = $('.container'),
+		$content 	= $container.find('.content'),
+		$btnConfirm = $container.find('.btn-confirm'),
+		$overlays 	= $container.find('.overlay');
 
-	windowElem.on('popstate', function(){
+	$window.on('popstate', function(){
 		if (!Templating.isChanging){
 			Templating.loadTemplate(window.location.hash.split('#')[1]);
 		}
 	});
 
-	$('.modules .module-switch').on('click', function(event){
-		event.stopPropagation();
+	$window.on('keyup', function(event){
+		if (event.keyCode === 32){
+			Tracking.isTracking ? Templating.loadTemplate() : $btnConfirm.trigger('click');
+			return false;
+		}
 
-		Templating.loadTemplate($(this).attr('href').split('#')[1]);
+		if (event.keyCode === 27){
+			Tracking.isTracking ? $overlays.fadeOut() : $btnConfirm.trigger('click');
+		}
 	});
 
-	modulesList.on('click', function(){
-		$(this).find('a').trigger('click');
+	$container.find('.space-indicator .wrapper').on('click', function(){
+		Templating.loadTemplate();
 	});
 
-	menuButton.on('click', function(){
-		menu.clearQueue();
-		menuButton.toggleClass('opened');
-		menu.toggleClass('closed open');
-		container.toggleClass('pushed');
-
-		return false;
+	$btnConfirm.on('click', function(){
+		Tracking.startTracking();
+		$overlays.fadeOut();
 	});
 
-	$('.btn-confirm').on('click', function(){
-		Templating.loadTemplate(Templating.activeModule.name);
+	$container.find('.btn-overlay').on('click', function(){
+		$overlays.filter('[data-overlay="'+ $(this).data('overlay') +'"]').fadeIn();
+	});
+
+	$overlays.find('.btn-close').on('click', function(){
+		$(this).parents('.overlay').fadeOut();
+	});
+
+	if (!Modernizr.getusermedia){
+		$overlays.filter('[data-overlay="landing"]').hide();
+		$overlays.filter('[data-overlay="error"]').show();
+	}
+
+	$('body').flowtype({
+		minFont: 11,
+		maxFont: 28,
+		fontRatio: 76
 	});
 
 	return {
-		windowElem: windowElem,
-		content: content,
-		modulesList: modulesList
+		$window: $window,
+		$content: $content
 	};
-})(jQuery, window);
+})(jQuery, Modernizr, window);
 
 /***** MODULES *****/
 var Modules = {};

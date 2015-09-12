@@ -1,7 +1,7 @@
 /***** TRACKING *****/
 var Tracking = (function(_, tracking, document){
-	var trackingCanvas  = document.getElementById('tracking-canvas'),
-		trackingContext = trackingCanvas.getContext('2d'),
+	var _trackingCanvas  = document.getElementById('tracking-canvas'),
+		_trackingContext = _trackingCanvas.getContext('2d'),
 		isTracking 		= false,
 		FastTracker 	= function(){
 			FastTracker.base(this, 'constructor');
@@ -17,8 +17,8 @@ var Tracking = (function(_, tracking, document){
 			this.bounceIntensities 		   = [];	// Saved bouncing intensities of the last image translation
 			this.lastBouncesLength 		   = 0;		// The size of bounceIntensities is saved to know if new bounces have occured
 			this.startTracking	   		   = false;	// Bool that tells us if we can track a new image translation
-			this.startTrackingIndex 	   = 0;		// We save at which point we can search for new knocks in bounceIntensities
-			this.increasingBounceThreshold = 3; 	// Number of these bounces that have to be superior to the bounce-1 so that we can tell if a new knock occured
+			this.startTrackingIndex 	   = 0;		// We save at which point we can search for new touches in bounceIntensities
+			this.increasingBounceThreshold = 3; 	// Number of these bounces that have to be superior to the bounce-1 so that we can tell if a new touch occured
 			this.interval 				   = null;	// setInterval initialisation
 		};
 
@@ -26,7 +26,7 @@ var Tracking = (function(_, tracking, document){
 
 	FastTracker.prototype.isTranslation = function(matches){
 		if (matches.length > 0){ // If there's at least 1 match
-			var reliableMatch  	  = _.max(matches, function(match){return match.confidence;}), // We filter the best reliable match with its confidence property
+			var reliableMatch  	  = _.max(matches, function(match){return match.confidence;}), // We filter the most reliable match, using its confidence property
 				translationHeight = reliableMatch.keypoint2[1] - reliableMatch.keypoint1[1]; // Height of the movement of the feature point with the highest confidence
 
 			this.translationIntensity = translationHeight; // We save the height of the movement
@@ -56,7 +56,7 @@ var Tracking = (function(_, tracking, document){
 		return false;
 	};
 
-	FastTracker.prototype.knock = function(){ // Feedback
+	FastTracker.prototype.touch = function(){ // Feedback
 		var intensity = Math.abs(_.max(this.bounceIntensities, function(bounce){return Math.abs(bounce);}));
 
 		Templating.activeModule.reference.feedback(intensity);
@@ -66,9 +66,9 @@ var Tracking = (function(_, tracking, document){
 		var that = this;
 
 		setTimeout(function(){
-				that.knock(); // Feedback (that should take the highest intensity level that occured 100ms after the knock)
+				that.touch(); // Feedback (that should take the highest intensity level that occured 100ms after the touch)
 
-				setTimeout(function(){ // 50ms later, we initialise the variables used to detect if a new knock occured or if the movement are oscillations of the last one
+				setTimeout(function(){ // 50ms later, we initialise the variables used to detect if a new touch occured or if the movement are oscillations of the last one
 					that.startTracking 		= true;
 					that.startTrackingIndex = that.bounceIntensities.length - 1;
 				}, 50);
@@ -77,9 +77,9 @@ var Tracking = (function(_, tracking, document){
 		}, timer);
 	};
 
-	FastTracker.prototype.checkNewBounces = function(){ // We can detect a new knock even if there are still oscillations from the last one
+	FastTracker.prototype.checkNewBounces = function(){ // We can detect a new touch even if there are still oscillations from the last one
 		// If since the last execution of that function (300ms), no new bounces occured
-		if (this.bounceIntensities.length == this.lastBouncesLength){
+		if (this.bounceIntensities.length === this.lastBouncesLength){
 			// We can reset all of the values and wait for a new image translation
 			this.resetValues();
 			this.bouncing 		   = false;
@@ -91,23 +91,23 @@ var Tracking = (function(_, tracking, document){
 		}
 	};
 
-	FastTracker.prototype.trackNewKnock = function(){
+	FastTracker.prototype.trackNewTouch = function(){
 		var bounceIntensities = this.bounceIntensities,
-			positiveBounces   = _.filter(bounceIntensities.slice(this.startTrackingIndex), function(bounce){return bounce > 0;}), // We only take the bounces with a positive intensity after we started tracking for a new knock
+			positiveBounces   = _.filter(bounceIntensities.slice(this.startTrackingIndex), function(bounce){return bounce > 0;}), // We only take the bounces with a positive intensity after we started tracking for a new touch
 			lastBounces 	  = _.last(positiveBounces, this.increasingBounceThreshold); // We test on this.increasingBounceThreshold values of bounceIntensities
 
 		bounceIntensities.push(this.translationIntensity); // We add the new bounce to the bounceIntensities array
 
 		if (this.startTracking && lastBounces.length && _.every(lastBounces, function(bounce){return bounce > positiveBounces[positiveBounces.length - this.increasingBounceThreshold - 1];}, this)){
 			/* If the this.increasingBounceThreshold last values were higher than their bounce-1, 
-			   it was a new knock and not only the oscillation because of the last bounce. */
+			   it was a new touch and not only the oscillation because of the last bounce. */
 			this.resetValues(); // We reset all values used for the tests
 			this.bounceIntensities = [_.last(bounceIntensities)]; // The last value of the actual bounceIntensities array becomes the first of the new array, and the old values are deleted
 			this.initiateTimeout(this, 50); // We launch the feedback timer again
 		}
 	};
 
-	FastTracker.prototype.resetValues = function(){ // Reset testing values after a new knock is detected
+	FastTracker.prototype.resetValues = function(){ // Reset testing values after a new touch is detected
 		clearInterval(this.interval);
 		this.startTracking 		= false;
 		this.startTrackingIndex = 0;
@@ -156,24 +156,24 @@ var Tracking = (function(_, tracking, document){
 		var matchedCorners = event.matchedCorners;
 
 		if (this.isTranslation(matchedCorners)){ // If a translation occured on this image frame
-			if (!this.bouncing){ // If that translation isn't just a bounce of another knock
+			if (!this.bouncing){ // If that translation isn't just a bounce of another touch
 				this.bouncing = true;
 				this.bounceIntensities.push(this.translationIntensity); // We add the new bounce to the bounceIntensities array
 				this.initiateTimeout(50); // We launch the feedback timer
 			}
 
 			else {
-				this.trackNewKnock();
+				this.trackNewTouch();
 			}
 		}
 
 		var corners = event.corners;
 
-		trackingContext.clearRect(0, 0, trackingCanvas.width, trackingCanvas.height);
-		trackingContext.fillStyle = '#F00';
+		_trackingContext.clearRect(0, 0, _trackingCanvas.width, _trackingCanvas.height);
+		_trackingContext.fillStyle = '#F00';
 
 		for (var i = 0; i < corners.length; i += 2){
-			trackingContext.fillRect(corners[i], corners[i+1], 2, 2);
+			_trackingContext.fillRect(corners[i], corners[i+1], 2, 2);
 		}
 	});
 

@@ -1,22 +1,48 @@
 @import 'partials/reset';
 
-$font-stack: 'Roboto', sans-serif;
+$font-stack: 'Nunito', sans-serif;
 $main-color: #2D2B2B;
 
 body {
 	height: 100%;
 	font-family: $font-stack;
-	font-size: 16px;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 3px;
 }
 
-a, a:visited {
+button {
+	display: block;
+	padding: 0;
+	border: none;
+	background: none;
+	outline: none;
+	text-align: left;
+	text-transform: uppercase;
+ 	font-family: $font-stack;
+	font-size: 0.75em;
+	color: #FFF;
+	cursor: pointer;
+	transition: all 250ms;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+	line-height: 1.3;
+}
+
+.no-spacing {
+	letter-spacing: 0;
+}
+
+a, 
+a:visited {
 	text-decoration: none;
 	color: #FFF;
 }
 
 .video-container {
-	/* visibility: hidden; */
-
+	visibility: hidden;
+	
 	video, canvas {
 		position: absolute;
 		top: 0;
@@ -24,5 +50,12 @@ a, a:visited {
 	}
 }
 
-@import 'partials/menu';
+#dpi {
+	height: 1in;
+	width: 1in; 
+	left: 100%; 
+	top: 100%;
+	position: fixed;
+}
+
 @import 'partials/container';

@@ -1,13 +1,20 @@
 /***** TEMPLATING *****/
-var Templating = (function($, _, Modernizr, window, document){
+var Templating = (function($, _, window, document){
 	var activeModule = getActiveModule(window.location.hash.split('#')[1]),
 		isChanging	 = false,
 		requestId;
 
 	function getActiveModule(hash){
-		var active = hash === '' ? 'sidlee' : hash;
+		var active = !_.has(Modules, hash) ? 'sidlee' : hash;
 
-		active = _.has(Modules, active) ? active : 'sidlee';
+		if (!hash && Tracking.isTracking) {
+			var modules = _.keys(Modules),
+				index 	= _.indexOf(modules, activeModule.name);
+
+			index = (index + 1 === modules.length) ? 0 : index + 1;
+
+			active = modules[index];
+		}
 
 		return {
 			name: active,
@@ -16,24 +23,16 @@ var Templating = (function($, _, Modernizr, window, document){
 	}
 
 	function loadTemplate(hash){
-		if (!Tracking.isTracking){
-			Tracking.startTracking();
-		}
-
 		stopAnimations();
-		isChanging = true;
-
+		isChanging 	 = true;
 		activeModule = getActiveModule(hash);
 
-		Elements.content.load('templates/'+ activeModule.name +'.html', function(){
+		Elements.$content.load('templates/'+ activeModule.name +'.html', function(){
 			isChanging = false;
 
 			activeModule.reference = new Modules[activeModule.name]();
 			document.title 		   = 'Knock - ' + activeModule.reference.title;
 		});
-
-		Elements.modulesList.filter('.active').toggleClass('active');
-		Elements.modulesList.find('a').filter('[href="#'+ activeModule.name +'"]').parent().addClass('active');
 
 		window.location.hash = '#' + activeModule.name;
 	}
@@ -45,9 +44,7 @@ var Templating = (function($, _, Modernizr, window, document){
 		}
 	}
 
-	if (!Modernizr.getusermedia){
-		Elements.content.html('<div class="center"><p>It looks like your browser cannot capture your camera\'s video, which is required for the experiment to work.<p><p>We recommend the latest versions of Google Chrome or Firefox.</p></div>');
-	}
+	loadTemplate(activeModule.name);
 
 	return {
 		loadTemplate: loadTemplate,
@@ -57,4 +54,4 @@ var Templating = (function($, _, Modernizr, window, document){
 		set requestId(value){requestId = value;},
 		get isChanging(){return isChanging;}
 	};
-})(jQuery, _, Modernizr, window, document);
+})(jQuery, _, window, document);

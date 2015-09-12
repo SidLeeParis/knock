@@ -1,22 +1,22 @@
 Modules.graph = function(){
-	var title  = 'Intensity Graph',
-		canvas = document.getElementById('chart-canvas');
-		resize = _.debounce(function(){
-			canvas.width  = Elements.content.width();
-			canvas.height = Elements.content.height();
-		}, 200);
-
-	resize();
-	Elements.windowElem.on('resize', resize);
-
-	var smoothie = new SmoothieChart({
+	var title  	  = 'Intensity Graph',
+		_canvas   = document.getElementById('chart-canvas'),
+		_smoothie = new SmoothieChart({
 			grid: {strokeStyle: 'transparent', verticalSections: 0, borderVisible: false, fillStyle: 'transparent'},
 			labels: {disabled: true},
 			millisPerPixel: 5,
 			maxValue: 10,
 			minValue: -8
 		}),
-		intensityLine = new TimeSeries();
+		_intensityLine = new TimeSeries();
+
+	var resize = function(){
+		_canvas.width  = Elements.$content.width();
+		_canvas.height = Elements.$content.height();
+
+		Templating.stopAnimations();
+		loop();
+	};
 
 	function feedback(intensity){
 		return;
@@ -25,14 +25,17 @@ Modules.graph = function(){
 	function loop(){
 		var intensity = Math.abs(_.last(Tracking.tracker.bounceIntensities)) || 0;
 
-		intensityLine.append(new Date().getTime(), intensity);
+		_intensityLine.append(new Date().getTime(), intensity);
 		Templating.requestId = window.requestAnimFrame(loop);
 	}
 
-	smoothie.addTimeSeries(intensityLine, {lineWidth: '4', strokeStyle: '#AAA'});
-	smoothie.streamTo(canvas, 0);
+	_smoothie.addTimeSeries(_intensityLine, {lineWidth: '4', strokeStyle: '#FFF'});
+	_smoothie.streamTo(_canvas, 0);
 
-	loop();
+	resize();
+
+	resize = _.debounce(resize, 200);
+	Elements.$window.on('resize', resize);
 
 	return {
 		feedback: feedback,

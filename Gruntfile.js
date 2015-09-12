@@ -119,16 +119,14 @@ module.exports = function(grunt) {
 			}
 		},
 	    jshint: {
-	    	files: ['src/assets/js/*.js', '!src/assets/js/prod.js', 'src/assets/js/modules/*.js']
-	    },
-		htmllint: {
-    		all: {
-    			options: {
-    				ignore: ['Start tag seen without seeing a doctype first. Expected "<!DOCTYPE html>".', 'Element "head" is missing a required instance of child element "title".']
-    			},
-    			src: ['src/index.html', 'src/assets/templates/*.html']
-    		}
-		}
+	    	files: ['src/assets/js/*.js', '!src/assets/js/prod.js', 'src/assets/js/modules/*.js'],
+		    options: {
+	        	expr: true,
+	        	curly: true,
+	        	eqeqeq: true,
+	        	quotmark: true
+	      	}
+	    }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-connect');
@@ -151,8 +149,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-html');
 
 	grunt.registerTask('serve', ['connect:server', 'watch']);
-	grunt.registerTask('lint', ['jshint', 'htmllint']);
-	grunt.registerTask('default', ['sass', 'autoprefixer', 'jshint', 'htmllint']);
+	grunt.registerTask('lint', ['jshint']);
+	grunt.registerTask('default', ['sass', 'autoprefixer', 'jshint']);
 
 	grunt.registerTask('build', ['clean', 'copy', 'concat', 'uglify', 'cssmin', 'processhtml', 'htmlmin']);
 	grunt.registerTask('run', ['build', 'connect:run']);

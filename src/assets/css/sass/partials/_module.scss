@@ -1,0 +1,134 @@
+.module {
+	.content {
+		@extend .container;
+		font-size: 1em;
+
+		#particles-canvas, 
+		#chart-canvas {
+			width: 100%;
+			height: 100%;
+			background: darken($main-color, 30%);
+		}
+
+		.jurassic-videos {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			-webkit-object-fit: cover;
+			-o-object-fit: cover;
+
+			&#ripple, &#trex {
+				display: none;
+			}
+		}
+	}
+
+	.footer {
+		display: flex;
+		justify-content: space-between;
+	    position: absolute;
+	    left: 0; right: 0; bottom: 0;
+		padding: 0.5em 0.5em;
+		z-index: -1;
+
+	    .troubleshooting {
+			display: flex;
+			align-items: flex-end;
+			flex-grow: 1;
+			flex-basis: 0;
+
+			.btn-overlay {
+				width: 35px;
+			    height: 35px;
+			    border-radius: 50%;
+			    border: 2px solid #FFF;
+		    	text-align: center;
+		    	font-size: 20px !important;
+		    	
+		    	span {
+			    	position: relative;
+				    left: 1px;
+				    top: 1px;
+		    	}
+
+		    	&:hover {
+			    	background-color: #FFF;
+			    	color: #000;
+		   		}
+			}
+	    }
+
+	    .space-indicator {
+	    	display: flex;
+	    	align-items: flex-end;
+	    	flex-grow: 1;
+	    	flex-basis: 0;
+
+	    	.wrapper {
+	    		margin: 0 auto;
+				cursor: pointer;
+				
+				p {
+					text-align: center;
+
+					&:nth-child(1){
+		    			padding: 4px;
+						letter-spacing: 16px;
+			    		border: 1px solid #FFF;
+			    		border-radius: 5px;
+			    		font-size: 0.93em;
+					}
+
+
+					&:nth-child(2){
+						margin-top: 10px;
+						font-size: 0.5em;
+						letter-spacing: 1px;
+					}
+				}
+	    	}
+	    }
+
+	    .social {
+	    	display: flex;
+	    	align-items: flex-end;
+	    	flex-direction: column;
+	    	flex-grow: 1;
+	    	flex-basis: 0;
+
+	    	a {
+	    		float: right;
+	    	}
+
+	    	.like-box {
+				float: right;
+
+	    		.fb-share-button {
+		    		position: relative;
+	    			top: -4px;
+    			}
+			}
+
+			.wrapper {
+				flex-direction: column;
+			}
+
+			.btn-overlay {
+				font-size: 0.5em;
+				letter-spacing: 2px;
+				width: 100%;
+				margin-bottom: 2px;
+
+				span {
+					float: right;
+				}
+
+				&:hover {
+					span {
+						text-decoration: underline;
+					}
+				}
+			}
+	    }
+	}
+}
