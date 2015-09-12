@@ -1,11 +1,8 @@
 @import 'partials/reset';
 
-$font-stack: 'Nunito', sans-serif;
-$main-color: #2D2B2B;
-
 body {
 	height: 100%;
-	font-family: $font-stack;
+	font-family: 'Nunito', sans-serif;
 	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 3px;
@@ -19,7 +16,7 @@ button {
 	outline: none;
 	text-align: left;
 	text-transform: uppercase;
- 	font-family: $font-stack;
+ 	font-family: 'Nunito', sans-serif;
 	font-size: 0.75em;
 	color: #FFF;
 	cursor: pointer;
