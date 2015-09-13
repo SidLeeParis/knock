@@ -1,10 +1,10 @@
 /********* Polyfills requestAnimationFrame / cancelAnimationFrame *********/
-window.requestAnimFrame = (function(){ 
-	return  window.requestAnimationFrame       || 
-			window.webkitRequestAnimationFrame || 
-			window.mozRequestAnimationFrame    || 
-			window.oRequestAnimationFrame      || 
-			window.msRequestAnimationFrame     || 
+window.requestAnimFrame = (function(){
+	return  window.requestAnimationFrame       ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame    ||
+			window.oRequestAnimationFrame      ||
+			window.msRequestAnimationFrame     ||
 			function(callback){window.setTimeout(callback, 1000 / 60);};
 })();
 
@@ -53,6 +53,10 @@ var Elements = (function($, Modernizr, window){
 
 	$container.find('.btn-overlay').on('click', function(){
 		$overlays.filter('[data-overlay="'+ $(this).data('overlay') +'"]').fadeIn();
+	});
+
+	$overlays.filter('[data-overlay!="landing"]').on('click', function() {
+		$(this).fadeOut();
 	});
 
 	$overlays.find('.btn-close').on('click', function(){
