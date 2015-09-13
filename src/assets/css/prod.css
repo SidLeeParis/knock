@@ -43,7 +43,7 @@ button {
   outline: none;
   text-align: left;
   text-transform: uppercase;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito';
   font-size: 0.75em;
   color: #FFF;
   cursor: pointer;
@@ -84,13 +84,25 @@ a:visited {
   bottom: 0;
   left: 0;
   background-color: black;
-  color: #FFF; }
+  color: #fff; }
+
+.like-box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 500; }
+  .like-box .fb-share-button {
+    position: relative;
+    top: -4px;
+    margin-right: 4px; }
 
 .overlay {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  display: none; }
+  display: none;
+  position: relative;
+  z-index: 2; }
   .overlay.open {
     display: block; }
   .overlay .center {
@@ -116,7 +128,7 @@ a:visited {
     text-align: center; }
     .overlay .center .wrapper {
       width: 75%;
-      padding: 5% 5%;
+      padding: 5%;
       position: relative; }
       .overlay .center .wrapper .bold {
         font-weight: bold; }
@@ -144,7 +156,7 @@ a:visited {
         width: 100%;
         left: 0;
         top: 0;
-        border: 1px solid #FFF;
+        border: 1px solid #fff;
         border-bottom: none;
         -webkit-box-align: baseline;
         -webkit-align-items: baseline;
@@ -176,7 +188,7 @@ a:visited {
           display: -webkit-flex;
           display: -ms-flexbox;
           display: flex;
-          border-bottom: 1px solid #FFF;
+          border-bottom: 1px solid #fff;
           -webkit-box-flex: 1;
           -webkit-flex: 1;
               -ms-flex: 1;
@@ -189,7 +201,7 @@ a:visited {
       width: 35px;
       height: 35px;
       border-radius: 50%;
-      border: 2px solid #FFF;
+      border: 2px solid #fff;
       text-align: center; }
       .overlay .center .btn-close div {
         margin: 0 auto;
@@ -202,7 +214,7 @@ a:visited {
           height: 3px;
           width: 15px;
           margin: 0 auto;
-          background-color: #FFF; }
+          background-color: #fff; }
           .overlay .center .btn-close div span:nth-child(1) {
             -webkit-transform: rotate(45deg);
                 -ms-transform: rotate(45deg);
@@ -212,7 +224,7 @@ a:visited {
                 -ms-transform: rotate(-45deg);
                     transform: rotate(-45deg); }
       .overlay .center .btn-close:hover {
-        background-color: #FFF; }
+        background-color: #fff; }
         .overlay .center .btn-close:hover span {
           background-color: #000; }
   .overlay[data-overlay="troubleshooting"] .wrapper > div {
@@ -221,10 +233,10 @@ a:visited {
         -ms-flex-align: start;
             align-items: flex-start;
     border-top: none;
-    border-bottom: 1px solid #FFF; }
+    border-bottom: 1px solid #fff; }
     .overlay[data-overlay="troubleshooting"] .wrapper > div > div {
       border-bottom: none;
-      border-top: 1px solid #FFF; }
+      border-top: 1px solid #fff; }
 
 .module .content {
   font-size: 1em; }
@@ -254,8 +266,7 @@ a:visited {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 0.5em 0.5em;
-  z-index: -1; }
+  padding: 0.5em; }
   .module .footer .troubleshooting {
     display: -webkit-box;
     display: -webkit-flex;
@@ -276,7 +287,7 @@ a:visited {
       width: 35px;
       height: 35px;
       border-radius: 50%;
-      border: 2px solid #FFF;
+      border: 2px solid #fff;
       text-align: center;
       font-size: 20px !important; }
       .module .footer .troubleshooting .btn-overlay span {
@@ -284,7 +295,7 @@ a:visited {
         left: 1px;
         top: 1px; }
       .module .footer .troubleshooting .btn-overlay:hover {
-        background-color: #FFF;
+        background-color: #fff;
         color: #000; }
   .module .footer .space-indicator {
     display: -webkit-box;
@@ -310,7 +321,7 @@ a:visited {
         .module .footer .space-indicator .wrapper p:nth-child(1) {
           padding: 4px;
           letter-spacing: 16px;
-          border: 1px solid #FFF;
+          border: 1px solid #fff;
           border-radius: 5px;
           font-size: 0.93em; }
         .module .footer .space-indicator .wrapper p:nth-child(2) {
@@ -342,9 +353,6 @@ a:visited {
       float: right; }
     .module .footer .social .like-box {
       float: right; }
-      .module .footer .social .like-box .fb-share-button {
-        position: relative;
-        top: -4px; }
     .module .footer .social .wrapper {
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;

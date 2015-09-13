@@ -1,166 +1,183 @@
 .container {
-	z-index: -1;
-	position: absolute;
-	overflow: hidden;
-	top: 0; right: 0; bottom: 0; left: 0;
-	background-color: darken(#2D2B2B, 25%);
-	color: #FFF;
+  z-index         : -1;
+  position        : absolute;
+  overflow        : hidden;
+  top             : 0;
+  right           : 0;
+  bottom          : 0;
+  left            : 0;
+  background-color: darken(#2D2B2B, 25%);
+  color           : #fff;
+}
+
+.like-box {
+  position: absolute;
+  top     : 10px;
+  left    : 10px;
+  z-index : 500;
+
+  .fb-share-button {
+    position    : relative;
+    top         : -4px;
+    margin-right: 4px;
+  }
 }
 
 .overlay {
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	display: none;
+  width           : 100%;
+  height          : 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display         : none;
+  position        : relative;
+  z-index         : 2;
 
-	&.open {
-		display: block;
-	}
+  &.open {
+    display: block;
+  }
 
-	.center {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-	 	justify-content: center;
-	 	flex-direction: column;
-		text-align: center;
+  .center {
+    width          : 100%;
+    height         : 100%;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    flex-direction : column;
+    text-align     : center;
 
-		.wrapper {
-			width: 75%;
-			padding: 5% 5%;
-			position: relative;
+    .wrapper {
+      width   : 75%;
+      padding : 5%;
+      position: relative;
 
-	 		.bold {
-	 			font-weight: bold;
-	 		}
+      .bold {
+        font-weight: bold;
+      }
 
-	 		a:hover {
-				text-decoration: underline;
-	 		}
+      a:hover {
+        text-decoration: underline;
+      }
 
-	 		.small {
-	 			font-size: 75%;
-	 			margin-top: -20px;
-	 		}
+      .small {
+        font-size : 75%;
+        margin-top: -20px;
+      }
 
-	 		p {
-	 			text-align: center;
-	 			margin-bottom: 30px;
+      p {
+        text-align   : center;
+        margin-bottom: 30px;
 
-	 			&:last-child {
-	 				margin-bottom: 0;
-	 			}
-	 		}
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
 
-	 		li {
-	 			margin-bottom: 10px;
+      li {
+        margin-bottom: 10px;
 
-	 			&:last-child {
-	 				margin-bottom: 0;
-	 			}
-	 		}
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
 
-			& > div {
-				display: flex;
-				position: absolute; 
-				height: 100%;
-				width: 100%;
-				left: 0; top: 0;
-				border: 1px solid #FFF;
-				border-bottom: none;
-				align-items: baseline;
-				pointer-events: none;
+      & > div {
+        display       : flex;
+        position      : absolute;
+        height        : 100%;
+        width         : 100%;
+        left          : 0;
+        top           : 0;
+        border        : 1px solid #fff;
+        border-bottom : none;
+        align-items   : baseline;
+        pointer-events: none;
 
-		 		.btn-confirm {
-				    font-size: 1.6em;
-					letter-spacing: 18px;
-					text-align: center;
-					transform: translateY(25%);
-					margin: 0 16px;
-					pointer-events: all;
-	 			}
+        .btn-confirm {
+          font-size     : 1.6em;
+          letter-spacing: 18px;
+          text-align    : center;
+          transform     : translateY(25%);
+          margin        : 0 16px;
+          pointer-events: all;
+        }
 
-	 			h2 {
-		 			font-size: 1.6em;
-		 			letter-spacing: 18px;
-				    text-align: center;
-				    transform: translateY(-50%);
-				    margin: 0 16px;
+        h2 {
+          font-size     : 1.6em;
+          letter-spacing: 18px;
+          text-align    : center;
+          transform     : translateY(-50%);
+          margin        : 0 16px;
 
-				    @media screen and (max-width: 685px){
- 						letter-spacing: 2px;
-				    }
- 				}
+          @media screen and (max-width: 685px) {
+            letter-spacing: 2px;
+          }
+        }
 
+        & > div {
+          display      : flex;
+          border-bottom: 1px solid #fff;
+          flex         : 1;
+          height       : 100%;
+        }
+      }
+    }
 
-				& > div {
-					display: flex;
-					border-bottom: 1px solid #FFF;
-					flex: 1;
-					height: 100%;
-				}
-			}
+    .btn-close {
+      position     : absolute;
+      top          : 10px;
+      right        : 10px;
+      width        : 35px;
+      height       : 35px;
+      border-radius: 50%;
+      border       : 2px solid #fff;
+      text-align   : center;
 
-		}
+      div {
+        margin  : 0 auto;
+        position: relative;
+        width   : 50%;
+        height  : 1px;
 
- 		.btn-close {
-			position: absolute;
-			top: 10px; right: 10px;
-			width: 35px;
-			height: 35px;
-			border-radius: 50%;
-			border: 2px solid #FFF;
-		   	text-align: center;
+        span {
+          display         : block;
+          position        : absolute;
+          height          : 3px;
+          width           : 15px;
+          margin          : 0 auto;
+          background-color: #fff;
 
-		   	div {
-		   		margin: 0 auto;
-		   		position: relative;
-    			width: 50%;
-    			height: 1px;
+          &:nth-child(1) {
+            transform: rotate(45deg);
+          }
 
-			   	span {
-					display: block;
-					position: absolute;
-					height: 3px;
-					width: 15px;
-					margin: 0 auto;
-					background-color: #FFF;
+          &:nth-child(2) {
+            transform: rotate(-45deg);
+          }
+        }
+      }
 
-			   		&:nth-child(1){
-						transform: rotate(45deg);
-			   		}
+      &:hover {
+        background-color: #fff;
 
-			   		&:nth-child(2){
-						transform: rotate(-45deg);
-			   		}
-			   	}
-		   	}
-	
-			&:hover {
-				background-color: #FFF;
+        span {
+          background-color: #000;
+        }
+      }
+    }
+  }
 
-				span {
-					background-color: #000;
-				}
-			}
-		}
-	}
+  &[data-overlay="troubleshooting"] {
+    .wrapper {
+      & > div {
+        align-items  : flex-start;
+        border-top   : none;
+        border-bottom: 1px solid #fff;
 
-	&[data-overlay="troubleshooting"]{
-		.wrapper {
-			& > div {
-				align-items: flex-start;
-				border-top: none;
-				border-bottom: 1px solid #FFF;
-
-				& > div {
-					border-bottom: none;
-					border-top: 1px solid #FFF;
-				}
-			}
-		}
-	}
+        & > div {
+          border-bottom: none;
+          border-top   : 1px solid #fff;
+        }
+      }
+    }
+  }
 }
-
 @import 'module';
