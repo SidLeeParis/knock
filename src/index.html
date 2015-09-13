@@ -1,37 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-	<title>Knock Knock</title>
-	<meta property="type" content="website">
+	<title>Sid Lee - Knock</title>
+	<meta name="description" content="This experiment aims at detecting simple touch events on screens that do not natively support them. Try it!">
+	<meta rel="canonical" href="https://sidleeparis.github.io/knock/">
+
+	<meta property="og:title" content="Sid Lee - Knock">
 	<meta property="og:type" content="website">
-	<meta property="title" content="Knock Knock">
-	<meta property="og:title" content="Knock">
-	<meta name="description" content="Knock">
-	<meta property="og:description" content="Knock">
-	<meta property="og:image" content="Knock">
-	<meta property="og:url" content="https://sidleeparis.github.io/knock">
-	<link href="//fonts.googleapis.com/css?family=Nunito:300" rel="stylesheet" type="text/css">	
+	<meta property="og:site_name" content="Sid Lee - Knock">
+	<meta property="og:description" content="This experiment aims at detecting simple touch events on screens that do not natively support them. Try it!">
+	<meta property="og:image" content="https://sidleeparis.github.io/knock/medias/img/share.jpg">
+	<meta property="og:url" content="https://sidleeparis.github.io/knock/">
+	<meta property="fb:app_id" content="1464230113884492">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@Sid Lee">
+	<meta name="twitter:title" content="Sid Lee - Knock">
+	<meta name="twitter:description" content="This experiment aims at detecting simple touch events on screens that do not natively support them. Try it!">
+	<meta name="twitter:creator" content="@SidLee">
+	<meta name="twitter:image:src" content="https://sidleeparis.github.io/knock/medias/img/share.jpg">
+	<meta name="twitter:domain" content="https://sidleeparis.github.io/knock/">
+
+	<!-- build:[href] medias/img/ -->
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/medias/img/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/medias/img/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/medias/img/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/medias/img/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/medias/img/apple-touch-icon-60x60.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/medias/img/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/medias/img/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/medias/img/apple-touch-icon-152x152.png" />
+	<link rel="icon" type="image/png" href="assets/medias/img/favicon-196x196.png" sizes="196x196" />
+	<link rel="icon" type="image/png" href="assets/medias/img/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="assets/medias/img/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="assets/medias/img/favicon-16x16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="assets/medias/img/favicon-128.png" sizes="128x128" />
+	<!-- /build -->
+	<meta name="application-name" content="Sidlee - Knock" />
+	<meta name="msapplication-TileColor" content="#FFFFFF" />
+	<!-- build:[content] medias/img/ -->
+	<meta name="msapplication-TileImage" content="assets/medias/img/mstile-144x144.png" />
+	<meta name="msapplication-square70x70logo" content="assets/medias/img/mstile-70x70.png" />
+	<meta name="msapplication-square150x150logo" content="assets/medias/img/mstile-150x150.png" />
+	<meta name="msapplication-wide310x150logo" content="assets/medias/img/mstile-310x150.png" />
+	<meta name="msapplication-square310x310logo" content="assets/medias/img/mstile-310x310.png" />
+	<!-- /build -->
+
+	<link href="//fonts.googleapis.com/css?family=Nunito:300" rel="stylesheet" type="text/css">
+
 	<!-- build:css css/prod.min.css -->
 	<link rel="stylesheet" type="text/css" href="assets/css/prod.css">
 	<!-- /build -->
 	<script>
 		var host = "sidleeparis.github.io";
 
-		if ((host == window.location.host) && (window.location.protocol != "https:")){
+		if ((host == window.location.host) && (window.location.protocol != "https:")) {
 			window.location.protocol = "https:";
 		}
 	</script>
 </head>
+
 <body>
 	<div id="fb-root"></div>
 	<script>
 		(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4";
-		  fjs.parentNode.insertBefore(js, fjs);
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4&appId=1464230113884492";
+			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
 
@@ -42,18 +81,41 @@
 
 	<div id="dpi"></div>
 
+	<div class="like-box">
+		<div class="fb-share-button" data-href="https://sidleeparis.github.io/knock/" data-layout="button_count"></div>
+
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://sidleeparis.github.io/knock/" data-text="Make your screen tactile!" data-hashtags="sidlee,knock"></a>
+		<script>
+			! function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0],
+					p = /^http:/.test(d.location) ? 'http' : 'https';
+				if (!d.getElementById(id)) {
+					js = d.createElement(s);
+					js.id = id;
+					js.src = p + '://platform.twitter.com/widgets.js';
+					fjs.parentNode.insertBefore(js, fjs);
+				}
+			}(document, 'script', 'twitter-wjs');
+		</script>
+	</div>
+
 	<div class="container">
 		<div class="overlay open" data-overlay="landing">
 			<div class="center">
 				<div class="wrapper">
 					<div>
 						<div></div>
-						<button class="btn-confirm">STAR<span class="no-spacing">T</span></button>
+						<button class="btn-confirm">STAR<span class="no-spacing">T</span>
+						</button>
 						<div></div>
 					</div>
 
-					<p>This experiment aims to detect simple touch events <br>on screens that do not natively support it.</p>
-					<p>You will be prompted to allow this website to access your camera. <br><span class="bold">It is required for the experiment to work.</span></p>
+					<p>This experiment aims at detecting simple touch events
+						<br>on screens that do not natively support them.</p>
+					<p>You will be prompted to allow this website to access your camera.
+						<br>
+						<span class="bold">It is required for the experiment to work.</span>
+					</p>
 					<p class="small">(webcam imagery will not be stored)</p>
 				</div>
 			</div>
@@ -67,13 +129,13 @@
 						<div></div>
 					</div>
 
-					<p>This experiment aims to detect simple touch events on screens that do not natively support it.</p>
+					<p>This experiment aims at detecting simple touch events on screens that do not natively support them.</p>
 					<p>Sadly, you either do not have a camera on your computer or your browser is not able to capture its input, which is required for the experiment to work.</p>
-					<p>We recommend the latest versions of Google Chrome or Firefox.</p>
+					<p>Please download latest versions for <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> or <a href="http://firefox.com" target="_blank">Firefox</a>.</p>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="overlay" data-overlay="troubleshooting">
 			<div class="center">
 				<button class="btn-close">
@@ -86,15 +148,16 @@
 				<div class="wrapper">
 					<div>
 						<div></div>
-						<h2>Troubleshootin<span class="no-spacing">g</span></h2>
+						<h2>Troubleshootin<span class="no-spacing">g</span>
+						</h2>
 						<div></div>
 					</div>
 
 					<ul>
-						<li>Try to press your screen harder</li>
-						<li>Avoid unicolor backgrounds and low light environments</li>
+						<li>Touch your screen harder</li>
+						<li>Avoid monochrome backgrounds or low light environments</li>
 						<li>Put your camera on top of your screen</li>
-						<li>Find a more stable support for your computer</li>
+						<li>Avoid having your laptop on your laps</li>
 					</ul>
 				</div>
 			</div>
@@ -115,8 +178,14 @@
 						<div></div>
 					</div>
 
-					<p>We are detecting your webcam's image translation <br>to trigger a touch event.</p>
-					<p>The tracking part was made with the <a href="http://trackingjs.com/" class="bold">tracking.js</a> library <br>using feature descriptors. The code is available on <a href="https://github.com/sidleeparis/knock" class="bold">Github</a>, so feel free to fork the repository!</p>
+					<p>We are detecting your webcam's image translation
+						<br>to trigger a touch event.</p>
+					<p>The tracking part was made with the <a href="http://trackingjs.com/" class="bold" target="_blank">tracking.js</a> library
+						<br>using feature descriptors. The code is available on <a href="https://github.com/sidleeparis/knock/" class="bold" target="_blank">Github</a>, so feel free to fork the repository!</p>
+					<p>
+						Credits - <a href="https://fr.linkedin.com/in/tombonnike" target="_blank">Tom Bonnike</a> and
+						<a href="https://twitter.com/davidbismut" target="_blank">@davidbismut</a>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -127,12 +196,15 @@
 
 			<div class="footer">
 				<div class="troubleshooting">
-					<button class="btn-overlay" data-overlay="troubleshooting"><span>?</span></button>
+					<button class="btn-overlay" data-overlay="troubleshooting">
+						<span>?</span>
+					</button>
 				</div>
 
 				<div class="space-indicator">
 					<div class="wrapper">
-						<p>SPAC<span class="no-spacing">E</span></p>
+						<p>SPAC<span class="no-spacing">E</span>
+						</p>
 						<p>To switch to another module</p>
 					</div>
 				</div>
@@ -144,12 +216,9 @@
 							<img src="assets/medias/img/sidlee_paris.png">
 							<!-- /build -->
 						</a>
-						<button class="btn-overlay" data-overlay="learnMore"><span>Learn more</span></button>
-						<div class="like-box">
-							<div class="fb-share-button" data-href="https://sidleeparis.github.io/knock" data-layout="button_count"></div>
-							
-						    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://sidleeparis.github.io/knock" data-text="Interesting experiment from @sidlee office in Paris!" data-hashtags="sidleeparis,touchscreen"></a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-						</div>
+						<button class="btn-overlay" data-overlay="learnMore">
+							<span>Learn more</span>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -187,4 +256,5 @@
 		ga('send', 'pageview');
 	</script>
 </body>
+
 </html>
