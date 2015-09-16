@@ -93,10 +93,7 @@ Modules.sidlee = function(){
 				centerX: initialX,
 				centerY: initialY,
 				radius: Math.random() * radiusScale + 0.5,
-				alpha: Math.max(Math.random() * 0.75 + 0.1, 0.2),
-				vx: Math.random() - 0.5,
-				vy: Math.random() - 0.5,
-				distanceFromOrigin: 0
+				alpha: Math.max(Math.random() * 0.75 + 0.1, 0.2)
 			};
 
 			particle.speedX = (particle.expandedX - particle.initialX) / 20;
@@ -142,13 +139,6 @@ Modules.sidlee = function(){
 			_context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
 			_context.fill();
 		});
-	}
-
-	function getDistanceFromOrigin(particle){
-		var deltaX = particle.x - particle.initialX,
-			deltaY = particle.y - particle.initialY;
-
-		return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
 	}
 
 	function ease(startValue, changeInValue, iterationPow) {
