@@ -1,5 +1,9 @@
 @import 'partials/reset';
 
+// [data-overlay="landing"] {
+// 	display: none !important;
+// }
+
 body {
 	height: 100%;
 	font-family: 'Nunito', sans-serif;
@@ -31,7 +35,7 @@ h1,h2,h3,h4,h5,h6,p {
 	letter-spacing: 0;
 }
 
-a, 
+a,
 a:visited {
 	text-decoration: none;
 	color: #FFF;
@@ -39,7 +43,7 @@ a:visited {
 
 .video-container {
 	visibility: hidden;
-	
+
 	video, canvas {
 		position: absolute;
 		top: 0;
@@ -49,8 +53,8 @@ a:visited {
 
 #dpi {
 	height: 1in;
-	width: 1in; 
-	left: 100%; 
+	width: 1in;
+	left: 100%;
 	top: 100%;
 	position: fixed;
 }
