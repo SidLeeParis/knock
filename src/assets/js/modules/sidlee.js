@@ -35,6 +35,7 @@ Modules.sidlee = function(){
 		};
 
 		var explodingRadius = Math.min(_canvas.width * 2 / 5, _canvas.width * intensity / 20);
+		_totalIterations =  Math.min(Math.floor(30 / intensity * 10), 80);
 
 		for(i = 0; i < _particles.length; i++) {
 			particle = _particles[i];
