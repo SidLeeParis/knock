@@ -4,7 +4,7 @@ Modules.sidlee = function(){
 		_context    	    = _canvas.getContext('2d'),
 		_particles  	 	= [],
 		_randomParticles    = [],
-		_totalIterations = 30,
+		_totalIterations = 40,
 		_currentIteration = 0,
 		_randomParticlesNum = 200,
 		TWO_PI = Math.PI * 2,
@@ -35,7 +35,7 @@ Modules.sidlee = function(){
 		};
 
 		var explodingRadius = Math.min(_canvas.width * 2 / 5, _canvas.width * intensity / 20);
-		_totalIterations =  Math.min(Math.floor(30 / intensity * 10), 80);
+		// _totalIterations =  Math.min(Math.floor(30 / intensity * 10), 80);
 
 		for(i = 0; i < _particles.length; i++) {
 			particle = _particles[i];
