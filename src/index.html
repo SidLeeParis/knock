@@ -59,6 +59,17 @@
 			window.location.protocol = "https:";
 		}
 	</script>
+	<script>
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-67059474-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </head>
 
 <body>
@@ -122,7 +133,7 @@
 			</div>
 		</div>
 
-		<div class="overlay" data-overlay="error">
+		<div class="overlay" data-overlay="no-getusermedia">
 			<div class="center">
 				<div class="wrapper">
 					<div>
@@ -133,6 +144,28 @@
 					<p>This experiment aims at detecting simple touch events on screens that do not natively support them.</p>
 					<p>Sadly, you either do not have a camera on your computer or your browser is not able to capture its input, which is required for the experiment to work.</p>
 					<p>Please download latest versions for <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a> or <a href="http://firefox.com" target="_blank">Firefox</a>.</p>
+					<p>Also, this experiment doesn't work on mobile (for obvious reasons).</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="overlay" data-overlay="already-has-touch">
+			<div class="center">
+				<div class="wrapper">
+					<div>
+						<div></div>
+						<div></div>
+					</div>
+					<p>Sorry, this experiment doesn't work on mobile or touch screens (for obvious reasons).</p>
+					<p>Please use a normal laptop or a desktop!</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="overlay" data-overlay="will-you-ever-touch">
+			<div class="center">
+				<div class="wrapper border-bottom">
+					<p>Tap your screen (that's the whole point)</p>
 				</div>
 			</div>
 		</div>
@@ -164,7 +197,7 @@
 			</div>
 		</div>
 
-		<div class="overlay" data-overlay="learnMore">
+		<div class="overlay" data-overlay="learn-more">
 			<div class="center">
 				<button class="btn-close">
 					<div>
@@ -217,7 +250,7 @@
 							<img src="assets/medias/img/sidlee_paris.png">
 							<!-- /build -->
 						</a>
-						<button class="btn-overlay" data-overlay="learnMore">
+						<button class="btn-overlay" data-overlay="learn-more">
 							<span>Learn more</span>
 						</button>
 					</div>
@@ -240,22 +273,6 @@
 	<script type="text/javascript" src="assets/js/modules/graph.js"></script>
 	<script type="text/javascript" src="assets/js/templating.js"></script>
 	<!-- /build -->
-	<script>
-		(function(i, s, o, g, r, a, m) {
-			i['GoogleAnalyticsObject'] = r;
-			i[r] = i[r] || function() {
-				(i[r].q = i[r].q || []).push(arguments)
-			}, i[r].l = 1 * new Date();
-			a = s.createElement(o),
-				m = s.getElementsByTagName(o)[0];
-			a.async = 1;
-			a.src = g;
-			m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-		ga('create', 'UA-67059474-1', 'auto');
-		ga('send', 'pageview');
-	</script>
 </body>
 
 </html>
