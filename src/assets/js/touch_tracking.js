@@ -1,8 +1,11 @@
 /***** TRACKING *****/
-var Tracking = (function(_, tracking, document){
+var Tracking = (function($, _, tracking, document){
 	var _trackingCanvas  = document.getElementById('tracking-canvas'),
 		_trackingContext = _trackingCanvas.getContext('2d'),
 		isTracking 		= false,
+		_willYouEverClick,
+		DELAY_BEFORE_NAGGING = 5000,
+		$overlays 	= $('.overlay'),
 		FastTracker 	= function(){
 			FastTracker.base(this, 'constructor');
 
@@ -12,7 +15,7 @@ var Tracking = (function(_, tracking, document){
 			this.blur 	   			   = 3;    // Blur level
 			this.uncertainty		   = 3;    // Uncertainty level in pixels to validate the movement of a feature point
 			this.translationPercentage = 0.95; // Percentage of the feature points that have to have moved of the same height to detect an image translation
-			
+
 			this.bouncing		   		   = false;	// Bool that tells us if the image is bouncing
 			this.bounceIntensities 		   = [];	// Saved bouncing intensities of the last image translation
 			this.lastBouncesLength 		   = 0;		// The size of bounceIntensities is saved to know if new bounces have occured
@@ -31,9 +34,9 @@ var Tracking = (function(_, tracking, document){
 
 			this.translationIntensity = translationHeight; // We save the height of the movement
 			translationHeight 		  = Math.abs(translationHeight); // Tests are made on the absolute value of this height
-			
+
 			if (translationHeight >= 1) { // If the height of the translation is superior to 1
-				/* 
+				/*
 					If more than this.translationPercentage percent of the feature points moved of the same height (while taking into account this.uncertainty),
 					then an image translation occured and it wasn't just a movement.
 				*/
@@ -43,7 +46,7 @@ var Tracking = (function(_, tracking, document){
 
 					if (differenceX < 2 &&
 						differenceY > 0 &&
-						differenceY - this.uncertainty <= translationHeight && 
+						differenceY - this.uncertainty <= translationHeight &&
 						differenceY + this.uncertainty >= translationHeight){
 						return true;
 					}
@@ -57,9 +60,11 @@ var Tracking = (function(_, tracking, document){
 	};
 
 	FastTracker.prototype.touch = function(){ // Feedback
+		clearTimeout(_willYouEverClick);
+		$overlays.fadeOut();
 		var intensity = Math.abs(_.max(this.bounceIntensities, function(bounce){return Math.abs(bounce);}));
-
 		Templating.activeModule.reference.feedback(intensity);
+		_gaq.push(['_trackEvent', 'tap-on-screen']);
 	};
 
 	FastTracker.prototype.initiateTimeout = function(timer){ // Feedback timer
@@ -99,7 +104,7 @@ var Tracking = (function(_, tracking, document){
 		bounceIntensities.push(this.translationIntensity); // We add the new bounce to the bounceIntensities array
 
 		if (this.startTracking && lastBounces.length && _.every(lastBounces, function(bounce){return bounce > positiveBounces[positiveBounces.length - this.increasingBounceThreshold - 1];}, this)){
-			/* If the this.increasingBounceThreshold last values were higher than their bounce-1, 
+			/* If the this.increasingBounceThreshold last values were higher than their bounce-1,
 			   it was a new touch and not only the oscillation because of the last bounce. */
 			this.resetValues(); // We reset all values used for the tests
 			this.bounceIntensities = [_.last(bounceIntensities)]; // The last value of the actual bounceIntensities array becomes the first of the new array, and the old values are deleted
@@ -134,9 +139,9 @@ var Tracking = (function(_, tracking, document){
 			corners 	   = tracking.Fast.findCorners(gray, width, height),
 			descriptors    = tracking.Brief.getDescriptors(gray, width, corners),
 			matchedCorners = tracking.Brief.reciprocalMatch(this.corners, this.descriptors, corners, descriptors);
-		
+
 		// Filtering the matches with a confidence < .85 or with a value of -Infinity/Infinity (?)
-		matchedCorners = _.filter(matchedCorners, function(match){return match.confidence >= 0.85 && match.confidence !== Math.abs(Infinity);}); 
+		matchedCorners = _.filter(matchedCorners, function(match){return match.confidence >= 0.85 && match.confidence !== Math.abs(Infinity);});
 
 		this.emit('track', {
 			corners: corners,
@@ -182,6 +187,11 @@ var Tracking = (function(_, tracking, document){
 		isTracking = true;
 
 		tracking.Fast.THRESHOLD = 20;
+
+		_willYouEverClick = setTimeout(function() {
+			$overlays.fadeOut();
+			$overlays.filter('[data-overlay="will-you-ever-touch"]').fadeIn();
+		}, DELAY_BEFORE_NAGGING);
 	}
 
 	function getScreenSize(){
@@ -197,4 +207,4 @@ var Tracking = (function(_, tracking, document){
 		get isTracking(){return isTracking;},
 		tracker: tracker
 	};
-})(_, tracking, document);
+})(jQuery, _, tracking, document);
