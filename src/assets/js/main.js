@@ -63,9 +63,13 @@ var Elements = (function($, Modernizr, window){
 		$(this).parents('.overlay').fadeOut();
 	});
 
-	if (!Modernizr.getusermedia){
-		$overlays.filter('[data-overlay="landing"]').hide();
-		$overlays.filter('[data-overlay="error"]').show();
+	if (Modernizr.touchevents) {
+		$overlays.hide();
+		$overlays.filter('[data-overlay="already-has-touch"]').show();
+	}
+	else if (!Modernizr.getusermedia){
+		$overlays.hide();
+		$overlays.filter('[data-overlay="no-getusermedia"]').show();
 	}
 
 	$('body').flowtype({
