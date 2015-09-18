@@ -64,7 +64,7 @@ var Tracking = (function($, _, tracking, document){
 		$overlays.fadeOut();
 		var intensity = Math.abs(_.max(this.bounceIntensities, function(bounce){return Math.abs(bounce);}));
 		Templating.activeModule.reference.feedback(intensity);
-		_gaq.push(['_trackEvent', 'tap-on-screen']);
+		_gaq.push(['_trackEvent', 'tap-on-screen', 'TAPPED']);
 	};
 
 	FastTracker.prototype.initiateTimeout = function(timer){ // Feedback timer
