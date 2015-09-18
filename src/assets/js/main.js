@@ -55,7 +55,7 @@ var Elements = (function($, Modernizr, window){
 		$overlays.filter('[data-overlay="'+ $(this).data('overlay') +'"]').fadeIn();
 	});
 
-	$overlays.filter('[data-overlay!="landing"]').on('click', function() {
+	$overlays.filter('[close-on-click="yes"]').on('click', function() {
 		$(this).fadeOut();
 	});
 
