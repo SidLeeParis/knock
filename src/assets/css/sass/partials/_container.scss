@@ -30,7 +30,6 @@
   display         : none;
   position        : relative;
   z-index         : 2;
-
   &.open {
     display: block;
   }
@@ -48,6 +47,10 @@
       width   : 75%;
       padding : 5%;
       position: relative;
+
+      &.border-bottom {
+        border: 1px solid #fff;
+      }
 
       .bold {
         font-weight: bold;

@@ -43,6 +43,9 @@ a:visited {
 
 .video-container {
 	visibility: hidden;
+	html.touchevents & {
+		display: none;
+	}
 
 	video, canvas {
 		position: absolute;

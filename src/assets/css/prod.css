@@ -63,6 +63,8 @@ a:visited {
 
 .video-container {
   visibility: hidden; }
+  html.touchevents .video-container {
+    display: none; }
   .video-container video, .video-container canvas {
     position: absolute;
     top: 0;
@@ -130,6 +132,8 @@ a:visited {
       width: 75%;
       padding: 5%;
       position: relative; }
+      .overlay .center .wrapper.border-bottom {
+        border: 1px solid #fff; }
       .overlay .center .wrapper .bold {
         font-weight: bold; }
       .overlay .center .wrapper a:hover {
