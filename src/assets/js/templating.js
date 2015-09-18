@@ -31,7 +31,8 @@ var Templating = (function($, _, window, document){
 			isChanging = false;
 
 			activeModule.reference = new Modules[activeModule.name]();
-			document.title 		   = 'Knock - ' + activeModule.reference.title;
+			_gaq.push(['_trackEvent', 'module', 'selected', activeModule.name]);
+			// document.title 		   = 'Knock - ' + activeModule.reference.title;
 		});
 
 		window.location.hash = '#' + activeModule.name;
