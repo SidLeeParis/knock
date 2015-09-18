@@ -10,7 +10,7 @@ Knock is an open-source project that aims at detecting simple touch events on sc
 
 #### How it works
 
-Knock analyses the screen movements to detect if a touch has been triggered. To do so, it requires access to the webcam and constantly checks if there has been a vertical translation of the image, based on [corners detection](https://en.wikipedia.org/wiki/Corner_detection) provieded by the [TrackingJS](http://trackingjs.com) library.
+Knock analyses the screen movements to detect if a touch has been triggered. To do so, it requires access to the webcam and constantly checks if there has been a vertical translation of the image, based on [corners detection](https://en.wikipedia.org/wiki/Corner_detection) provided by the [TrackingJS](http://trackingjs.com) library.
 
 
 #### Requirements
